@@ -15,9 +15,23 @@ add_test(
   COMMAND door-tests
 )
 
-if (LIBGPIODCXX_FOUND)
+if (LIBGPIOD_FOUND)
   add_executable(gpio-read-value-loop gpio-read-value-loop.cpp)
-  target_link_libraries(gpio-read-value-loop LIBGPIODCXX::LIBGPIODCXX)
+  target_link_libraries(gpio-read-value-loop LIBGPIOD::LIBGPIOD)
 else()
   message(WARNING "Not building gpio-read-value-loop because libgpiod not found")
 endif()
+
+add_executable(
+  motorLED-tests
+
+  motorLED-tests.cpp
+)
+
+target_link_libraries(
+  motorLED-tests
+
+  door
+)
+
+  target_link_libraries(motorLED-tests LIBGPIOD::LIBGPIOD)
